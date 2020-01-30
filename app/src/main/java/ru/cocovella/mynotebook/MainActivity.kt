@@ -2,25 +2,34 @@ package ru.cocovella.mynotebook
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
 
-    private var counter = 0
+    lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        button?.setOnClickListener { updateViews() }
+
+        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        viewModel.getLiveData().observe(this, Observer{
+            updateViews(it.note.title, it.note.body)
+        })
+
+        button?.setOnClickListener {
+            val noteBody = editText.text.toString()
+            viewModel.setLiveData("upd: ", noteBody)
+        }
 
     }
 
-    private fun updateViews() {
-        val noteText = editText.text
-        val btnText = "upd: " + counter++
-        textView.text = noteText
-        button.text = btnText
+    private fun updateViews(noteTitle: String, noteBody: String) {
+        button.text = noteTitle
+        textView.text = noteBody
     }
 
 }
