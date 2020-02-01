@@ -5,13 +5,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.activity_main.*
-import ru.cocovella.mynotebook.viewmodel.MainViewModel
 import ru.cocovella.mynotebook.R
+import ru.cocovella.mynotebook.model.entities.NotesList
+import ru.cocovella.mynotebook.viewmodel.ListAdapter
+import ru.cocovella.mynotebook.viewmodel.MainViewModel
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModel: MainViewModel
+    private lateinit var listAdapter: ListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,22 +24,25 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setViews() {
+        setSupportActionBar(toolbar)
+
+        listAdapter = ListAdapter()
+        recyclerView.adapter = listAdapter
+        listAdapter.notes = NotesList.notes
+
+
         button?.setOnClickListener {
-            val noteBody = editText.text.toString()
-            viewModel.setLiveData("upd: ", noteBody)
+            val noteTitle = editTextTitle.text.toString()
+            val noteBody = editTextBody.text.toString()
+            viewModel.saveToList(noteTitle, noteBody)
         }
     }
 
     private fun setObserver() {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        viewModel.getLiveData().observe(this, Observer {
-            updateViews(it.getTitle(), it.getBody())
+        viewModel.listState().observe(this, Observer {
+            it?.let { listAdapter.notes = it.notesList }
         })
-    }
-
-    private fun updateViews(noteTitle: String, noteBody: String) {
-        button.text = noteTitle
-        textView.text = noteBody
     }
 
 }
