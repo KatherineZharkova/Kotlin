@@ -11,10 +11,12 @@ import ru.cocovella.mynotebook.viewmodel.ListAdapter
 import ru.cocovella.mynotebook.viewmodel.MainViewModel
 
 
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModel: MainViewModel
     private lateinit var listAdapter: ListAdapter
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +37,7 @@ class MainActivity : AppCompatActivity() {
             val noteTitle = editTextTitle.text.toString()
             val noteBody = editTextBody.text.toString()
             viewModel.saveToList(noteTitle, noteBody)
+
         }
     }
 
@@ -44,5 +47,6 @@ class MainActivity : AppCompatActivity() {
             it?.let { listAdapter.notes = it.notesList }
         })
     }
+
 
 }

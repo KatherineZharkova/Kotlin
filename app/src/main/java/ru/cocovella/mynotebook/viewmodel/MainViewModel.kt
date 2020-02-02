@@ -14,6 +14,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun saveToList(noteTitle: String, noteBody: String, color: Int = 0){
         listLiveData.value = NotesListView().addNote(noteTitle, noteBody, color)
+
     }
 
 }
