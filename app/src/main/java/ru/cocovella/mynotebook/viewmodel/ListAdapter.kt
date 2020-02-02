@@ -9,7 +9,7 @@ import ru.cocovella.mynotebook.R
 import ru.cocovella.mynotebook.model.entities.Note
 
 
-class ListAdapter : RecyclerView.Adapter<NoteViewHolder>() {
+class ListAdapter : RecyclerView.Adapter<ListAdapter.ViewHolder>() {
 
     var notes: List<Note> = listOf()
         set(value) {
@@ -17,25 +17,25 @@ class ListAdapter : RecyclerView.Adapter<NoteViewHolder>() {
             notifyDataSetChanged()
         }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NoteViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.item_note, parent, false)
-        return NoteViewHolder(view)
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+            ViewHolder(
+                    LayoutInflater.from(parent.context)
+                            .inflate(R.layout.item_note, parent, false)
+            )
 
     override fun getItemCount() = notes.size
 
-    override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
-        holder.bind(notes[position])
-    }
-}
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(notes[position])
 
-class NoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    fun bind(note: Note) = with(itemView) {
-        title.text = note.title
-        body.text = note.body
-        cardView.setCardBackgroundColor(note.color)
+
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        fun bind(note: Note) = with(itemView) {
+            title.text = note.title
+            body.text = note.body
+            cardView.setCardBackgroundColor(note.color)
+        }
     }
 
 }
