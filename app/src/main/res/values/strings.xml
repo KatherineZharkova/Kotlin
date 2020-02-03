@@ -1,5 +1,13 @@
 <resources>
-    <string name="app_name">My Notebook</string>
-    <string name="button">Button</string>
-    <string name="text_long_test">This is some long text to test the note going to the next line</string>
+
+    <string name="app_name">WishList</string>
+    <string name="button">Confirm</string>
+
+    <string name="edit_text_title_hint"> ~ Name ~ </string>
+    <string name="edit_text_body_hint"> ~ Cause Of Death ~ </string>
+
+    <string name="card_title">Кот — самый верный друг!</string>
+    <string name="card_body">Он никому не расскажет, как ты ешь по ночам! Он будет есть вместе с тобой!</string>
+
+
 </resources>
