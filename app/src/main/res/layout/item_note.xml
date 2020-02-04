@@ -10,7 +10,7 @@
     android:layout_marginEnd="@dimen/margin_8"
     android:layout_marginBottom="@dimen/margin_8"
     app:cardCornerRadius="@dimen/corner_radius"
-    tools:backgroundTint="@color/colorAccent">
+    tools:backgroundTint="@color/pink">
 
     <LinearLayout
         android:layout_width="match_parent"

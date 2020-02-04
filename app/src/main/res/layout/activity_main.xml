@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.MainActivity">
+    tools:context=".view.list.MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
@@ -12,64 +12,37 @@
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_8"
-                    android:orientation="vertical">
-
-                    <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/editTextTitle"
-                        style="@style/TextAppearance.AppCompat.Title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/edit_text_title_hint"
-                        android:inputType="text"
-                        tools:text="@string/card_title" />
-
-                    <androidx.appcompat.widget.AppCompatEditText
-                        android:id="@+id/editTextBody"
-                        style="@style/TextAppearance.AppCompat"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="@string/edit_text_body_hint"
-                        android:inputType="textMultiLine|textAutoCorrect"
-                        tools:text="@string/card_body"/>
-
-                    <Button
-                        android:id="@+id/button"
-                        style="@android:style/Widget.Holo.Light.Button"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/button" />
-
-                </LinearLayout>
-
-
-            </androidx.appcompat.widget.Toolbar>
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="@string/app_name"
+            app:layout_scrollFlags="scroll|enterAlwaysCollapsed" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:spanCount="2"
+        tools:itemCount="5"
+        tools:listitem="@layout/item_note" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:spanCount="2"
-            tools:itemCount="5"
-            tools:listitem="@layout/item_note" >
-
-
-        </androidx.recyclerview.widget.RecyclerView>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:fabSize="normal"
+        android:layout_marginEnd="@dimen/margin_8"
+        android:layout_marginBottom="@dimen/margin_8"
+        app:layout_anchorGravity="bottom|end"
+        app:layout_anchor="@id/toolbar"
+        android:src="@drawable/ic_add_black_24dp"
+        />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
