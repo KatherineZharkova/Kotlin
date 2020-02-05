@@ -10,7 +10,6 @@ import ru.cocovella.mynotebook.view.note.NoteActivity
 
 
 class MainActivity : AppCompatActivity() {
-
     private lateinit var viewModel: ListViewModel
     private lateinit var listAdapter: ListAdapter
 

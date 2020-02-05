@@ -48,9 +48,7 @@ class ListAdapter(val onItemViewClick : (Note) -> Unit) : RecyclerView.Adapter<L
                         Color.PINK -> R.color.pink
                     }))
 
-            setOnClickListener {
-                onItemViewClick.invoke(note)
-            }
+            setOnClickListener { onItemViewClick.invoke(note) }
 
         }
     }

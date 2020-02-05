@@ -22,7 +22,7 @@ class NoteActivity : AppCompatActivity() {
     companion object {
         private val EXTRA_NOTE = NoteActivity::class.java.name + "extra.NOTE"
         private const val DATE_TIME_FORMAT = "dd.MMM, HH:mm:ss"
-        private const val SAVE_DELAY = 7000L
+        private const val SAVE_DELAY = 2000L
 
         fun start(context: Context, note: Note? = null) {
             val intent = Intent(context, NoteActivity::class.java)
@@ -69,10 +69,8 @@ class NoteActivity : AppCompatActivity() {
                 Color.VIOLET -> R.color.violet
                 Color.PINK -> R.color.pink
             }
-
             toolbar.setBackgroundColor(ContextCompat.getColor(this, color))
         }
-
         editTextTitle.addTextChangedListener(editTextListener)
         editTextBody.addTextChangedListener(editTextListener)
     }
@@ -86,8 +84,10 @@ class NoteActivity : AppCompatActivity() {
             note = note?.
                     copy(title = title, body = body, lastChanged = Date()) ?:
                     Note(id = UUID.randomUUID().toString(), title = title, body = body)
-            note?.let { noteViewModel = NoteViewModel()
-                    noteViewModel.save(it) }
+            note?.let {
+                noteViewModel.save(it)
+                initActionBar()
+            }
         }, SAVE_DELAY)
     }
 
@@ -95,4 +95,5 @@ class NoteActivity : AppCompatActivity() {
         android.R.id.home -> { onBackPressed(); true }
         else -> super.onOptionsItemSelected(item)
     }
+
 }

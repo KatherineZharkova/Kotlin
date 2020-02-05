@@ -1,6 +1,5 @@
 package ru.cocovella.mynotebook.model
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import java.util.*
@@ -26,12 +25,10 @@ object NoteList {
         for(i in notesList.indices) {
             if(notesList[i] == note) {
                 notesList[i] = note
-                Log.d("NoteBookLOG", notesList.toString())
                 return
             }
         }
         notesList.add(note)
-        Log.d("NoteBookLOG", notesList.toString())
     }
 
     fun notesLiveData(): LiveData<List<Note>> = notesLiveData
