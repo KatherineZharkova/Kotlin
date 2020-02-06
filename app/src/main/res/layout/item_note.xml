@@ -5,12 +5,9 @@
     android:id="@+id/cardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/margin_8"
-    android:layout_marginTop="@dimen/margin_8"
-    android:layout_marginEnd="@dimen/margin_8"
-    android:layout_marginBottom="@dimen/margin_8"
+    android:layout_margin="@dimen/margin_8"
     app:cardCornerRadius="@dimen/corner_radius"
-    tools:backgroundTint="@color/colorAccent">
+    tools:cardBackgroundColor="@color/pink">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,10 +19,7 @@
             style="@style/TextAppearance.AppCompat.Title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_8"
-            android:layout_marginTop="@dimen/margin_8"
-            android:layout_marginEnd="@dimen/margin_8"
-            android:textIsSelectable="true"
+            android:padding="@dimen/margin_8"
             tools:text="@string/card_title" />
 
         <TextView
@@ -33,8 +27,7 @@
             style="@style/TextAppearance.AppCompat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_8"
-            android:textIsSelectable="true"
+            android:padding="@dimen/margin_8"
             tools:text="@string/card_body" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

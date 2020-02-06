@@ -1,13 +1,13 @@
 <resources>
 
-    <string name="app_name">WishList</string>
+    <string name="app_name">My Mortal Enemies List</string>
     <string name="button">Confirm</string>
 
     <string name="edit_text_title_hint"> ~ Name ~ </string>
-    <string name="edit_text_body_hint"> ~ Cause Of Death ~ </string>
+    <string name="edit_text_body_hint"> ~ Crime ~ </string>
 
-    <string name="card_title">Кот — самый верный друг!</string>
-    <string name="card_body">Он никому не расскажет, как ты ешь по ночам! Он будет есть вместе с тобой!</string>
+    <string name="card_title">Кот</string>
+    <string name="card_body">Кот — самый надежный товарищ! Он никому не расскажет, как ты ешь по ночам… Он будет есть вместе с тобой.</string>
 
 
 </resources>
