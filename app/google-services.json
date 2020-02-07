@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "585798844902",
+    "firebase_url": "https://my-mortal-enemies-list.firebaseio.com",
+    "project_id": "my-mortal-enemies-list",
+    "storage_bucket": "my-mortal-enemies-list.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:585798844902:android:abd37898978009097f9627",
+        "android_client_info": {
+          "package_name": "ru.cocovella.mortalenemies"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "585798844902-qvmvhi3s1c2o92ivcqv739jd84ltejbm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.cocovella.mortalenemies",
+            "certificate_hash": "64538fb97e6f50ab0ca6f626ba85047f97674bca"
+          }
+        },
+        {
+          "client_id": "585798844902-q80bbuttacovsv7lo4rfdfvno8ivv9d0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArH_qYdxpLfOc0Jw8jVD28vshn28FZ8So"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "585798844902-q80bbuttacovsv7lo4rfdfvno8ivv9d0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

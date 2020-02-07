@@ -1,4 +1,4 @@
-package ru.cocovella.mynotebook.view.list
+package ru.cocovella.mortalenemies.view.list
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_note.view.*
-import ru.cocovella.mynotebook.R
-import ru.cocovella.mynotebook.model.Note
-import ru.cocovella.mynotebook.model.Note.Color
+import ru.cocovella.mortalenemies.R
+import ru.cocovella.mortalenemies.data.Note
+import ru.cocovella.mortalenemies.data.Note.Color
 
 
 class ListAdapter(val onItemViewClick : (Note) -> Unit) : RecyclerView.Adapter<ListAdapter.ViewHolder>() {

@@ -1,4 +1,4 @@
-package ru.cocovella.mynotebook.model
+package ru.cocovella.mortalenemies.data
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
@@ -7,7 +7,7 @@ import java.util.*
 
 @Parcelize
 data class Note(
-        val id: String,
+        val id: String = "",
         val title: String = "",
         val body: String = "",
         val color: Color = Color.PINK,
