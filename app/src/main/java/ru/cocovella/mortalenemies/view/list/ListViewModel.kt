@@ -1,6 +1,5 @@
 package ru.cocovella.mortalenemies.view.list
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import ru.cocovella.mortalenemies.data.Note
 import ru.cocovella.mortalenemies.data.Repository
@@ -9,27 +8,23 @@ import ru.cocovella.mortalenemies.data.model.NoteResult.Error
 import ru.cocovella.mortalenemies.data.model.NoteResult.Success
 import ru.cocovella.mortalenemies.view.base.BaseViewModel
 
-
 class ListViewModel : BaseViewModel<List<Note>?, ListViewState>() {
-    private val notesObserver by lazy { Observer<NoteResult> { t ->
-        t ?: return@Observer
-        when(t) {
-            is Success<*> -> viewStateLiveData.value = ListViewState(notes = t.data as? List<Note>)
-            is Error -> viewStateLiveData.value = ListViewState(error = t.error) }
+    private val listLiveData = Repository.getNotes()
+    private val resultObserver by lazy { Observer<NoteResult> {
+        it ?: return@Observer
+        when(it) {
+            is Success<*> -> baseLiveData.value = ListViewState(notes = it.data as? List<Note>)
+            is Error -> baseLiveData.value = ListViewState(error = it.error) }
         }
     }
-    private val liveData = Repository.getNotes()
 
     init {
-        viewStateLiveData.value = ListViewState()
-        liveData.observeForever(notesObserver)
+        baseLiveData.value = ListViewState()
+        listLiveData.observeForever(resultObserver)
     }
-
-    fun viewStateLiveData(): LiveData<ListViewState> = viewStateLiveData
 
     override fun onCleared() {
-        liveData.removeObserver(notesObserver)
+        listLiveData.removeObserver(resultObserver)
         super.onCleared()
     }
-
 }

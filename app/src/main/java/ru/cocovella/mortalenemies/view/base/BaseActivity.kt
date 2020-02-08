@@ -14,7 +14,7 @@ abstract class BaseActivity<T, S : BaseViewState<T>> : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layoutRes)
-        viewModel.getViewState().observe(this, object : Observer<S> {
+        viewModel.baseLiveData().observe(this, object : Observer<S> {
             override fun onChanged(viewState: S?) {
                 viewState ?: return
                 viewState.error?.let {

@@ -9,9 +9,7 @@ import ru.cocovella.mortalenemies.data.model.NoteResult
 import ru.cocovella.mortalenemies.data.model.NoteResult.Error
 import ru.cocovella.mortalenemies.data.model.NoteResult.Success
 
-
 class FireStoreProvider : RemoteDataProvider {
-
     companion object{
         private const val NOTES_COLLECTION = "notes"
         private val TAG = "${FireStoreProvider::class.java.simpleName} :"
@@ -19,12 +17,11 @@ class FireStoreProvider : RemoteDataProvider {
     private val fireStore = FirebaseFirestore.getInstance()
     private val notesReference = fireStore.collection(NOTES_COLLECTION)
 
-
     override fun subscribeToAllNotes(): LiveData<NoteResult> {
         val liveData = MutableLiveData<NoteResult>()
-        notesReference.addSnapshotListener { snapshot, e ->
-            e?.let {
-                liveData.value = Error(e)
+        notesReference.addSnapshotListener { snapshot, exception ->
+            exception?.let {
+                liveData.value = Error(exception)
             } ?: snapshot?.let {
                 val notes = mutableListOf<Note>()
                 for (doc in snapshot) {
@@ -33,7 +30,6 @@ class FireStoreProvider : RemoteDataProvider {
                 liveData.value = Success(notes)
             }
         }
-
         return liveData
     }
 

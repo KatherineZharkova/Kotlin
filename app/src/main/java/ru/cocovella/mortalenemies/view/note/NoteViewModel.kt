@@ -10,26 +10,20 @@ import ru.cocovella.mortalenemies.view.base.BaseViewModel
 
 class NoteViewModel : BaseViewModel<Note?, NoteViewState>() {
     private var pendingNote: Note? = null
-    init {
-        viewStateLiveData.value = NoteViewState()
-    }
-
-    fun save(note: Note) {
-        pendingNote = note
-    }
+    init { baseLiveData.value = NoteViewState() }
 
     fun loadNote(noteId: String) {
-        Repository.getNoteById(noteId).observeForever(object : Observer<NoteResult> {
-            override fun onChanged(t: NoteResult?) {
-                t ?: return
-                when (t) {
-                    is Success<*> ->
-                        viewStateLiveData.value = NoteViewState(note = t.data as Note)
-                    is Error ->
-                        viewStateLiveData.value = NoteViewState(error = t.error)
-                }
+        Repository.getNoteById(noteId).observeForever(Observer<NoteResult> {
+            it ?: return@Observer
+            when (it) {
+                is Success<*> -> baseLiveData.value = NoteViewState(note = it.data as Note)
+                is Error -> baseLiveData.value = NoteViewState(error = it.error)
             }
         })
+    }
+
+    fun saveNote(note: Note) {
+        pendingNote = note
     }
 
     override fun onCleared() {
