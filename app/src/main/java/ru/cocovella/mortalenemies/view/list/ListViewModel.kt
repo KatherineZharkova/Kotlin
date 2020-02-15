@@ -12,10 +12,8 @@ class ListViewModel : BaseViewModel<List<Note>?, ListViewState>() {
     private val listLiveData = Repository.getNotes()
     private val resultObserver by lazy { Observer<NoteResult> {
         it ?: return@Observer
-        when(it) {
-            is Success<*> -> baseLiveData.value = ListViewState(notes = it.data as? List<Note>)
-            is Error -> baseLiveData.value = ListViewState(error = it.error) }
-        }
+        if (it is Success<*>) baseLiveData.value = ListViewState(notes = it.data as? List<Note>)
+        else if (it is Error) baseLiveData.value = ListViewState(error = it.error) }
     }
 
     init {
