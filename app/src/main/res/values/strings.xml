@@ -9,5 +9,12 @@
     <string name="card_title">Кот</string>
     <string name="card_body">Кот — самый надежный товарищ! Он никому не расскажет, как ты ешь по ночам… Он будет есть вместе с тобой.</string>
 
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="logout_title">LogOut</string>
+    <string name="logout_message">Logout?</string>
+    <string name="positive_btn">OK</string>
+    <string name="negative_btn">Cancel</string>
+
 
 </resources>

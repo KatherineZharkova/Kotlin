@@ -12,8 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name="ru.cocovella.mortalenemies.view.note.NoteActivity" />
-        <activity android:name="ru.cocovella.mortalenemies.view.list.MainActivity">
+        <activity
+            android:name=".view.splash.SplashActivity"
+            android:theme="@style/SplashTheme"/>
+        <activity android:name=".view.note.NoteActivity" />
+        <activity android:name=".view.list.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
