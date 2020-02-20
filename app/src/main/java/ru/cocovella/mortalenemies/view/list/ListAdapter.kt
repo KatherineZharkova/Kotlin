@@ -3,12 +3,11 @@ package ru.cocovella.mortalenemies.view.list
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.item_note.view.*
 import ru.cocovella.mortalenemies.R
 import ru.cocovella.mortalenemies.data.Note
-import ru.cocovella.mortalenemies.data.Note.Color
+import ru.cocovella.mortalenemies.data.getColorInt
 
 class ListAdapter(val onItemViewClick : (Note) -> Unit) : RecyclerView.Adapter<ListAdapter.ViewHolder>() {
 
@@ -35,18 +34,7 @@ class ListAdapter(val onItemViewClick : (Note) -> Unit) : RecyclerView.Adapter<L
         fun bind(note: Note) = with(itemView) {
             title.text = note.title
             body.text = note.body
-
-            cardView.setCardBackgroundColor(ContextCompat.getColor(context,
-                    when(note.color){
-                        Color.WHITE -> R.color.white
-                        Color.PINK -> R.color.pink
-                        Color.RED -> R.color.red
-                        Color.ORANGE -> R.color.orange
-                        Color.YELLOW -> R.color.yellow
-                        Color.GREEN -> R.color.green
-                        Color.BLUE -> R.color.blue
-                        Color.VIOLET -> R.color.violet
-                    }))
+            cardView.setCardBackgroundColor(note.color.getColorInt(context))
             setOnClickListener { onItemViewClick.invoke(note) }
         }
     }

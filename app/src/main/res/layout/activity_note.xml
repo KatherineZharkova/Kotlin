@@ -20,6 +20,25 @@
             app:titleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
             tools:title="saved: 05.Feb, 00:58:00" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorPrimaryLight"/>
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryLight"
+            android:scrollbars="none">
+
+            <ru.cocovella.mortalenemies.view.customviews.ColorPickerView
+                android:id="@+id/colorPickerView"
+                android:layout_width="wrap_content"
+                android:layout_height="?attr/actionBarSize" />
+
+        </HorizontalScrollView>
+
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout

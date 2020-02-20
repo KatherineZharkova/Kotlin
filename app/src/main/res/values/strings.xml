@@ -1,20 +1,20 @@
 <resources>
 
     <string name="app_name">My Mortal Enemies List</string>
-    <string name="button">Confirm</string>
+    <string name="on_error_button">Confirm</string>
 
     <string name="edit_text_title_hint"> ~ Name ~ </string>
     <string name="edit_text_body_hint"> ~ Crime ~ </string>
 
+    <string name="card_color_picker">Color</string>
     <string name="card_title">Кот</string>
     <string name="card_body">Кот — самый надежный товарищ! Он никому не расскажет, как ты ешь по ночам… Он будет есть вместе с тобой.</string>
-
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="card_note_delete_title">Delete this note forever?</string>
+    <string name="card_note_delete_msg">You will not be able to restore it afterwards.</string>
 
     <string name="logout_title">LogOut</string>
-    <string name="logout_message">Logout?</string>
+    <string name="logout_message">Do you want to logout?</string>
     <string name="positive_btn">OK</string>
     <string name="negative_btn">Cancel</string>
-
 
 </resources>
