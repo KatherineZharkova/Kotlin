@@ -6,9 +6,11 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import androidx.lifecycle.ViewModelProvider
 import com.firebase.ui.auth.AuthUI
 import kotlinx.android.synthetic.main.activity_main.*
+import org.jetbrains.anko.alert
+import org.jetbrains.anko.startActivity
+import org.koin.android.viewmodel.ext.android.viewModel
 import ru.cocovella.mortalenemies.R
 import ru.cocovella.mortalenemies.data.Note
 import ru.cocovella.mortalenemies.view.base.BaseActivity
@@ -16,15 +18,13 @@ import ru.cocovella.mortalenemies.view.note.NoteActivity
 import ru.cocovella.mortalenemies.view.splash.SplashActivity
 
 
-class MainActivity : BaseActivity<List<Note>?, ListViewState>(), LogoutFragment.LogoutListener {
-    override val viewModel: ListViewModel by lazy { ViewModelProvider(this).get(ListViewModel::class.java) }
+class ListActivity : BaseActivity<List<Note>?, ListViewState>() {
+    override val model: ListViewModel by viewModel()
     override val layoutRes = R.layout.activity_main
-    lateinit var adapter: ListAdapter
+    private lateinit var adapter: ListAdapter
 
     companion object{
-        fun start(context: Context) = Intent(context, MainActivity::class.java).apply{
-            context.startActivity(this)
-        }
+        fun start(context: Context) = context.startActivity<ListActivity>()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,16 +46,20 @@ class MainActivity : BaseActivity<List<Note>?, ListViewState>(), LogoutFragment.
 
     override fun onOptionsItemSelected(item: MenuItem) =
             when (item.itemId) {
-                R.id.logout -> showLogoutDialog()?.let { true }
+                R.id.logout -> showLogoutDialog().let { true }
                 else -> false
             }
 
     private fun showLogoutDialog() {
-        supportFragmentManager.findFragmentByTag(LogoutFragment.TAG) ?:
-        LogoutFragment.createInstance().show(supportFragmentManager, LogoutFragment.TAG)
+        alert {
+            titleResource = R.string.logout_title
+            messageResource = R.string.logout_message
+            positiveButton(R.string.positive_btn) { onLogout() }
+            negativeButton(R.string.negative_btn) { dialog -> dialog.dismiss() }
+        }.show()
     }
 
-    override fun onLogout() {
+    private fun onLogout() {
         AuthUI.getInstance().signOut(this)
                 .addOnCompleteListener{
                     startActivity(Intent(this, SplashActivity::class.java))

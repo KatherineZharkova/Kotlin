@@ -13,13 +13,13 @@ import ru.cocovella.mortalenemies.data.errors.NoAuthException
 
 abstract class BaseActivity<T, S : BaseViewState<T>> : AppCompatActivity() {
     companion object{ const val REQUEST_CODE = 665 }
-    abstract val viewModel: BaseViewModel<T, S>
+    abstract val model: BaseViewModel<T, S>
     abstract val layoutRes: Int?
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         layoutRes?.let { setContentView(it) }
-        viewModel.baseLiveData().observe(this, object : Observer<S> {
+        model.baseLiveData().observe(this, object : Observer<S> {
             override fun onChanged(viewState: S?) {
                 viewState ?: return
                 viewState.error?.let {
@@ -54,15 +54,15 @@ abstract class BaseActivity<T, S : BaseViewState<T>> : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE && resultCode != Activity.RESULT_OK) {
             finish()
         }
-        super.onActivityResult(requestCode, resultCode, data)
     }
 
     private fun showError(error: String) {
         val snackBar = Snackbar.make(recyclerView, error, Snackbar.LENGTH_INDEFINITE)
-        snackBar.setAction(R.string.button) { snackBar.dismiss() }.show()
+        snackBar.setAction(R.string.on_error_button) { snackBar.dismiss() }.show()
     }
 
     abstract fun renderData(data: T)
