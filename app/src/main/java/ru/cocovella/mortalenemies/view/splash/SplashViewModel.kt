@@ -7,7 +7,7 @@ import ru.cocovella.mortalenemies.view.base.BaseViewModel
 class SplashViewModel(private val repository: Repository) : BaseViewModel<Boolean?, SplashViewState>() {
     fun requestUser() {
         repository.getCurrentUser().observeForever {
-            baseLiveData.value = it?.let { SplashViewState(authOK = true) } ?: let { SplashViewState(error = NoAuthException()) }
+            baseLiveData.value = it?.let { SplashViewState(authOK = true) } ?: SplashViewState(error = NoAuthException())
         }
     }
 }

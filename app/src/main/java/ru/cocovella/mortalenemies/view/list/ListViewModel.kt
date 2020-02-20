@@ -8,7 +8,7 @@ import ru.cocovella.mortalenemies.data.model.NoteResult.Error
 import ru.cocovella.mortalenemies.data.model.NoteResult.Success
 import ru.cocovella.mortalenemies.view.base.BaseViewModel
 
-class ListViewModel(private val repository: Repository) : BaseViewModel<List<Note>?, ListViewState>() {
+class ListViewModel(repository: Repository) : BaseViewModel<List<Note>?, ListViewState>() {
     private val listLiveData = repository.getNotes()
     private val resultObserver by lazy { Observer<NoteResult> {
         it ?: return@Observer
