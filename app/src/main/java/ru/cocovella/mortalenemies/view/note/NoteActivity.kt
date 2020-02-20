@@ -1,7 +1,6 @@
 package ru.cocovella.mortalenemies.view.note
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,6 +8,7 @@ import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_note.*
 import org.jetbrains.anko.alert
+import org.jetbrains.anko.startActivity
 import org.koin.android.viewmodel.ext.android.viewModel
 import ru.cocovella.mortalenemies.R
 import ru.cocovella.mortalenemies.data.Note
@@ -23,17 +23,13 @@ class NoteActivity : BaseActivity<NoteViewState.Data, NoteViewState>() {
         private val NOTE_ID = NoteActivity::class.java.name + "extra.NOTE"
         private const val DATE_TIME_FORMAT = "dd.MMM, HH:mm:ss"
 
-        fun start(context: Context, id: String? = null) {
-            val intent = Intent(context, NoteActivity::class.java)
-            intent.putExtra(NOTE_ID, id)
-            context.startActivity(intent)
-        }
+        fun start(context: Context, id: String? = null) = context.startActivity<NoteActivity>(NOTE_ID to id)
     }
+
     override val model: NoteViewModel by viewModel()
     override val layoutRes: Int = R.layout.activity_note
     private var note: Note? = null
     private var color = Note.Color.WHITE
-    private var selectionPosition = 0
     private val editTextListener = object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
@@ -67,13 +63,10 @@ class NoteActivity : BaseActivity<NoteViewState.Data, NoteViewState>() {
 
     private fun initView() {
         note?.let { note ->
-            selectionPosition = editTextBody.selectionEnd
             removeTextListener()
             color = note.color
-            editTextTitle.setText(note.title)
-            editTextBody.setText(note.body)
-            editTextTitle.setSelection(note.title.length)
-            editTextBody.setSelection(selectionPosition)
+            if (note.title != editTextTitle.text.toString()) { editTextTitle.setText(note.title) }
+            if(note.body != editTextBody.text.toString()) { editTextBody.setText(note.body) }
             setActionBarTitle()
         }
         setTextListener()

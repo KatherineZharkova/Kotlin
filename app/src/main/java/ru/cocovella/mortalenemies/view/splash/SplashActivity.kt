@@ -3,7 +3,7 @@ package ru.cocovella.mortalenemies.view.splash
 import android.os.Handler
 import org.koin.android.viewmodel.ext.android.viewModel
 import ru.cocovella.mortalenemies.view.base.BaseActivity
-import ru.cocovella.mortalenemies.view.list.MainActivity
+import ru.cocovella.mortalenemies.view.list.ListActivity
 
 
 class SplashActivity : BaseActivity<Boolean?, SplashViewState>() {
@@ -16,11 +16,11 @@ class SplashActivity : BaseActivity<Boolean?, SplashViewState>() {
     }
 
     override fun renderData(data: Boolean?) {
-        data?.takeIf { it }?.let { startMainActivity() }
+        data?.takeIf { it }?.let { startListActivity() }
     }
 
-    private fun startMainActivity() {
-        MainActivity.start(this)
+    private fun startListActivity() {
+        ListActivity.start(this)
         finish()
     }
 }

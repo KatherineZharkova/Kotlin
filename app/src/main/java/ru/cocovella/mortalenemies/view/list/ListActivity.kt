@@ -9,6 +9,7 @@ import android.view.MenuItem
 import com.firebase.ui.auth.AuthUI
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.alert
+import org.jetbrains.anko.startActivity
 import org.koin.android.viewmodel.ext.android.viewModel
 import ru.cocovella.mortalenemies.R
 import ru.cocovella.mortalenemies.data.Note
@@ -17,15 +18,13 @@ import ru.cocovella.mortalenemies.view.note.NoteActivity
 import ru.cocovella.mortalenemies.view.splash.SplashActivity
 
 
-class MainActivity : BaseActivity<List<Note>?, ListViewState>() {
+class ListActivity : BaseActivity<List<Note>?, ListViewState>() {
     override val model: ListViewModel by viewModel()
     override val layoutRes = R.layout.activity_main
     private lateinit var adapter: ListAdapter
 
     companion object{
-        fun start(context: Context) = Intent(context, MainActivity::class.java).apply{
-            context.startActivity(this)
-        }
+        fun start(context: Context) = context.startActivity<ListActivity>()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
