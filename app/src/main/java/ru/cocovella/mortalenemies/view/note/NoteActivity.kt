@@ -33,6 +33,7 @@ class NoteActivity : BaseActivity<NoteViewState.Data, NoteViewState>() {
     override val layoutRes: Int = R.layout.activity_note
     private var note: Note? = null
     private var color = Note.Color.WHITE
+    private var selectionPosition = 0
     private val editTextListener = object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
@@ -66,13 +67,13 @@ class NoteActivity : BaseActivity<NoteViewState.Data, NoteViewState>() {
 
     private fun initView() {
         note?.let { note ->
+            selectionPosition = editTextBody.selectionEnd
             removeTextListener()
             color = note.color
             editTextTitle.setText(note.title)
             editTextBody.setText(note.body)
-//            editTextTitle.setSelection(editTextTitle.text!!.length)
-//            editTextBody.setSelection(editTextBody.text!!.length)
-
+            editTextTitle.setSelection(note.title.length)
+            editTextBody.setSelection(selectionPosition)
             setActionBarTitle()
         }
         setTextListener()
@@ -84,7 +85,6 @@ class NoteActivity : BaseActivity<NoteViewState.Data, NoteViewState>() {
         colorPickerView.onColorClickListener = {
             color = it
             saveNote()
-            toolbar.setBackgroundColor(it.getColorInt(this))
         }
     }
 
