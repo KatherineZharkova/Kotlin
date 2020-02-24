@@ -6,7 +6,6 @@ import io.mockk.clearMocks
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
@@ -25,6 +24,7 @@ class NoteViewModelTest {
     private val testNote = Note("id#01", "title", "bodyText")
     private lateinit var viewModel: NoteViewModel
 
+
     @Before
     fun setUp() {
         clearMocks(mockRepository)
@@ -34,19 +34,15 @@ class NoteViewModelTest {
         viewModel = NoteViewModel(mockRepository)
     }
 
-    @After
-    fun tearDown() { }
-
 
     @Test
     fun `loadNote() should return note`() {
         var result: NoteViewState.Data? = null
         val testData = NoteViewState.Data(false, testNote)
-        viewModel.baseLiveData.observeForever{
-            result = it.data
-        }
-        viewModel.loadNote(testNote.id)
         noteLiveData.value = NoteResult.Success(testNote)
+        viewModel.liveData().observeForever{ result = it?.data }
+
+        viewModel.loadNote(testNote.id)
         assertEquals(testData, result)
     }
 
@@ -54,11 +50,10 @@ class NoteViewModelTest {
     fun `loadNote() should return error`() {
         var result: Throwable? = null
         val testData = Throwable("error")
-        viewModel.baseLiveData.observeForever{
-            result = it.error
-        }
-        viewModel.loadNote(testNote.id)
         noteLiveData.value = NoteResult.Error(error = testData)
+        viewModel.liveData().observeForever{ result = it?.error }
+
+        viewModel.loadNote(testNote.id)
         assertEquals(testData, result)
     }
 
@@ -66,12 +61,12 @@ class NoteViewModelTest {
     fun `deleteNote() should return isDeleted`() {
         var result: NoteViewState.Data? = null
         val testData = NoteViewState.Data(true, null)
-        viewModel.baseLiveData.observeForever{
-            result = it.data
-        }
-        viewModel.saveNote(testNote)
-        viewModel.deleteNote()
         noteLiveData.value = NoteResult.Success(null)
+        viewModel.liveData().observeForever{ result = it?.data }
+
+        viewModel.saveNote(testNote)
+        viewModel.onCleared()
+        viewModel.deleteNote()
         assertEquals(testData, result)
     }
 
@@ -79,12 +74,12 @@ class NoteViewModelTest {
     fun `deleteNote() should return error`() {
         var result: Throwable? = null
         val testData = Throwable("error")
-        viewModel.baseLiveData.observeForever{
-            result = it.error
-        }
-        viewModel.saveNote(testNote)
-        viewModel.deleteNote()
         noteLiveData.value = NoteResult.Error(testData)
+        viewModel.liveData().observeForever{ result = it?.error }
+
+        viewModel.saveNote(testNote)
+        viewModel.onCleared()
+        viewModel.deleteNote()
         assertEquals(testData, result)
     }
 
@@ -92,6 +87,7 @@ class NoteViewModelTest {
     fun `saveNote() should save changes`() {
         viewModel.saveNote(testNote)
         viewModel.onCleared()
-        verify { mockRepository.saveNote(testNote) }
+        verify(exactly = 1) { mockRepository.saveNote(testNote) }
     }
+
 }

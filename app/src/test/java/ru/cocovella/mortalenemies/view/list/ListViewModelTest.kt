@@ -6,7 +6,6 @@ import io.mockk.clearMocks
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Before
@@ -25,6 +24,7 @@ class ListViewModelTest {
     private val listLiveData = MutableLiveData<NoteResult>()
     private lateinit var viewModel: ListViewModel
 
+
     @Before
     fun setUp() {
         clearMocks(mockRepository)
@@ -32,40 +32,34 @@ class ListViewModelTest {
         viewModel = ListViewModel(mockRepository)
     }
 
-    @After
-    fun tearDown() { }
-
 
     @Test
-    fun `should call getNotes()`() {
+    fun `should call getNotes() once`() {
         verify(exactly = 1) { mockRepository.getNotes() }
     }
 
     @Test
-    fun `onSuccess should return notes`() {
+    fun `should return notes`() {
         var result:List<Note>? = null
         val testData = listOf(Note("1"), Note("2"), Note("3"))
-        viewModel.baseLiveData.observeForever{
-            result = it.data
-        }
         listLiveData.value = NoteResult.Success(testData)
+        viewModel.liveData().observeForever{ result = it?.data }
         assertEquals(testData, result)
     }
 
     @Test
-    fun `onError should return error`() {
+    fun `should return error`() {
         var result: Throwable? = null
         val testData = Throwable("error")
-        viewModel.baseLiveData.observeForever{
-            result = it.error
-        }
         listLiveData.value = NoteResult.Error(error = testData)
+        viewModel.liveData().observeForever { result = it?.error }
         assertEquals(testData, result)
     }
 
     @Test
-    fun `onCleared() should remove observer`() {
+    fun `should remove observer`() {
         viewModel.onCleared()
         assertFalse(listLiveData.hasObservers())
     }
+
 }

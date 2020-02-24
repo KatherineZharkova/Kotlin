@@ -60,7 +60,7 @@ class FireStoreProvider(private val firebaseAuth: FirebaseAuth, private val fire
                 try {
                     userNotesCollection.document(note.id).set(note)
                             .addOnSuccessListener {
-                                Log.d(TAG, "Note $note is saved")
+//                                Log.d(TAG, "Note $note is saved")
                                 value = Success(note) }
                             .addOnFailureListener { throw it }
                 } catch (e: Throwable){
