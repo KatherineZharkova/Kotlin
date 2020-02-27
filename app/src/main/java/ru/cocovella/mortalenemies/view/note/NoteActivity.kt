@@ -97,7 +97,7 @@ class NoteActivity : BaseActivity<NoteData>() {
     private fun saveNote() {
         val title = editTextTitle.text.toString()
         val body = editTextBody.text.toString()
-        if (title.length < 3) return
+//        if (title.length < 3) return
 
             note = note?.copy(
                     title = title,
