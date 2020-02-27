@@ -1,13 +1,16 @@
 package ru.cocovella.mortalenemies.view.splash
 
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.launch
 import ru.cocovella.mortalenemies.data.Repository
 import ru.cocovella.mortalenemies.data.errors.NoAuthException
 import ru.cocovella.mortalenemies.view.base.BaseViewModel
 
-class SplashViewModel(private val repository: Repository) : BaseViewModel<Boolean?, SplashViewState>() {
+@ExperimentalCoroutinesApi
+class SplashViewModel(private val repository: Repository) : BaseViewModel<Boolean?>() {
     fun requestUser() {
-        repository.getCurrentUser().observeForever {
-            baseLiveData.value = it?.let { SplashViewState(authOK = true) } ?: SplashViewState(error = NoAuthException())
+        launch {
+            repository.getCurrentUser()?.let { setData(true) } ?: setError(NoAuthException())
         }
     }
 }

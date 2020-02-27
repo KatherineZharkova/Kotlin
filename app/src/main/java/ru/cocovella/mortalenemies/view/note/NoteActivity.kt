@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_note.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.startActivity
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -19,7 +20,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class NoteActivity : BaseActivity<NoteViewState.Data, NoteViewState>() {
+@ExperimentalCoroutinesApi
+class NoteActivity : BaseActivity<NoteData>() {
     companion object {
         val NOTE_ID = NoteActivity::class.java.name + "extra.NOTE"
         private const val DATE_TIME_FORMAT = "dd.MMM, HH:mm:ss"
@@ -44,22 +46,15 @@ class NoteActivity : BaseActivity<NoteViewState.Data, NoteViewState>() {
         loadNote()
     }
 
-    private fun loadNote() {
-        val noteId = intent.getStringExtra(NOTE_ID)
-        noteId?.let { model.loadNote(it) } ?: initView()
-    }
-
-    private fun setActionBarTitle() {
-        supportActionBar?.title = note?.let {
-            "saved: " + SimpleDateFormat(DATE_TIME_FORMAT, Locale.getDefault()).format(it.lastChanged)
-        } ?: getString(R.string.app_name)
-        toolbar.setBackgroundColor(color.getColorInt(this))
-    }
-
-    override fun renderData(data: NoteViewState.Data) {
+    override fun renderData(data: NoteData) {
         if (data.isDeleted) finish()
         this.note = data.note
         initView()
+    }
+
+    private fun loadNote() {
+        val noteId = intent.getStringExtra(NOTE_ID)
+        noteId?.let { model.loadNote(it) } ?: initView()
     }
 
     private fun initView() {
@@ -74,6 +69,12 @@ class NoteActivity : BaseActivity<NoteViewState.Data, NoteViewState>() {
         setColorPickerTab()
     }
 
+    private fun setActionBarTitle() {
+        supportActionBar?.title = note?.let {
+            "saved: " + SimpleDateFormat(DATE_TIME_FORMAT, Locale.getDefault()).format(it.lastChanged)
+        } ?: getString(R.string.app_name)
+        toolbar.setBackgroundColor(color.getColorInt(this))
+    }
 
     private fun setColorPickerTab() {
         colorPickerView.onColorClickListener = {
@@ -96,7 +97,7 @@ class NoteActivity : BaseActivity<NoteViewState.Data, NoteViewState>() {
     private fun saveNote() {
         val title = editTextTitle.text.toString()
         val body = editTextBody.text.toString()
-//        if (title.length < 3) return
+        if (title.length < 3) return
 
             note = note?.copy(
                     title = title,

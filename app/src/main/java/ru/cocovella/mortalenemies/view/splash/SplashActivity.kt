@@ -1,12 +1,14 @@
 package ru.cocovella.mortalenemies.view.splash
 
 import android.os.Handler
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.android.viewmodel.ext.android.viewModel
 import ru.cocovella.mortalenemies.view.base.BaseActivity
 import ru.cocovella.mortalenemies.view.list.ListActivity
 
 
-class SplashActivity : BaseActivity<Boolean?, SplashViewState>() {
+@ExperimentalCoroutinesApi
+class SplashActivity : BaseActivity<Boolean?>() {
     override val model: SplashViewModel by viewModel()
     override val layoutRes: Int? = null
 
