@@ -17,7 +17,7 @@ class ColorCircleView @JvmOverloads constructor(context: Context,
                                                 attrs: AttributeSet? = null,
                                                 defStyleAttrs: Int = 0) : View(context, attrs, defStyleAttrs){
     companion object {
-        @Dimension(unit = DP) private const val defRadiusDp = 16
+        @Dimension(unit = DP) private const val defRadiusDp = 10
         @Dimension(unit = DP) private const val defStrokeWidthDp = 1
     }
 
@@ -28,22 +28,13 @@ class ColorCircleView @JvmOverloads constructor(context: Context,
     @Dimension(unit = PX) var radius: Float = dip(defRadiusDp).toFloat()
 
     @ColorRes var fillColorRes: Int = R.color.white
-        set(value) {
-            field = value
-            fillPaint.color = ContextCompat.getColor(context, value)
-        }
+        set(value) { field = value; fillPaint.color = ContextCompat.getColor(context, value) }
 
     @ColorRes var strokeColorRes: Int = R.color.textSecondary
-        set(value) {
-            field = value
-            strokePaint.color = ContextCompat.getColor(context, value)
-        }
+        set(value) { field = value; strokePaint.color = ContextCompat.getColor(context, value) }
 
     @Dimension(unit = PX) var strokeWidth: Float = dip(defStrokeWidthDp).toFloat()
-        set(value) {
-            field = value
-            strokePaint.strokeWidth = value
-        }
+        set(value) { field = value; strokePaint.strokeWidth = value }
 
     init {
         val a = context.obtainStyledAttributes(attrs, R.styleable.ColorCircleView)
@@ -73,6 +64,6 @@ class ColorCircleView @JvmOverloads constructor(context: Context,
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         canvas.drawCircle(center.first, center.second, radius, strokePaint)
-        canvas.drawCircle(center.first, center.second, radius - strokeWidth, fillPaint)
+        canvas.drawCircle(center.first, center.second, radius, fillPaint)
     }
 }

@@ -1,5 +1,6 @@
 package ru.cocovella.mortalenemies.view.note
 
+import androidx.annotation.VisibleForTesting
 import ru.cocovella.mortalenemies.data.Note
 import ru.cocovella.mortalenemies.data.Repository
 import ru.cocovella.mortalenemies.data.model.NoteResult.Error
@@ -38,6 +39,7 @@ class NoteViewModel(private val repository: Repository) : BaseViewModel<NoteView
         }
     }
 
-    override fun onCleared() { pendingNote?.let { repository.saveNote(it) } }
+    @VisibleForTesting
+    public override fun onCleared() { pendingNote?.let { repository.saveNote(it) } }
 
 }

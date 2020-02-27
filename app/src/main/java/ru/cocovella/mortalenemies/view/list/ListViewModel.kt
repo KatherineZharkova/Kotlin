@@ -1,5 +1,6 @@
 package ru.cocovella.mortalenemies.view.list
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.Observer
 import ru.cocovella.mortalenemies.data.Note
 import ru.cocovella.mortalenemies.data.Repository
@@ -8,6 +9,7 @@ import ru.cocovella.mortalenemies.data.model.NoteResult.Error
 import ru.cocovella.mortalenemies.data.model.NoteResult.Success
 import ru.cocovella.mortalenemies.view.base.BaseViewModel
 
+@Suppress("UNCHECKED_CAST")
 class ListViewModel(repository: Repository) : BaseViewModel<List<Note>?, ListViewState>() {
     private val listLiveData = repository.getNotes()
     private val resultObserver by lazy { Observer<NoteResult> {
@@ -21,7 +23,8 @@ class ListViewModel(repository: Repository) : BaseViewModel<List<Note>?, ListVie
         listLiveData.observeForever(resultObserver)
     }
 
-    override fun onCleared() {
+    @VisibleForTesting
+    public override fun onCleared() {
         listLiveData.removeObserver(resultObserver)
         super.onCleared()
     }

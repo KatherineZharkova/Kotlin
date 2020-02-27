@@ -4,12 +4,14 @@ import android.animation.PropertyValuesHolder
 import android.animation.ValueAnimator
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import android.view.Gravity
 import android.widget.LinearLayout
 import androidx.annotation.Dimension
 import androidx.annotation.Dimension.DP
 import org.jetbrains.anko.dip
 import ru.cocovella.mortalenemies.data.Note
+import ru.cocovella.mortalenemies.data.getColorInt
 import ru.cocovella.mortalenemies.data.getColorRes
 
 class ColorPickerView : LinearLayout {
@@ -68,7 +70,10 @@ class ColorPickerView : LinearLayout {
                         dip(PADDING).let {
                             setPadding(it, it, it, it)
                         }
-                        setOnClickListener { onColorClickListener(it.tag as Note.Color) }
+                        setOnClickListener {
+                            onColorClickListener(it.tag as Note.Color)
+                            Log.d("NotesDEBUG", "color clicked ${it.tag}(${color.getColorInt(context)})")
+                        }
                     })
         }
     }

@@ -26,14 +26,14 @@ data class Note(
 
 
         enum class Color {
-            WHITE,
+            RED,
+            ORANGE,
             YELLOW,
             GREEN,
             BLUE,
-            RED,
             VIOLET,
             PINK,
-            ORANGE
+            WHITE
         }
 
     }

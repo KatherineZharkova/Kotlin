@@ -14,6 +14,7 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
+            android:background="@color/colorPrimary"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:layout_scrollFlags="scroll|enterAlways"
@@ -28,13 +29,12 @@
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryLight"
             android:scrollbars="none">
 
             <ru.cocovella.mortalenemies.view.customviews.ColorPickerView
                 android:id="@+id/colorPickerView"
                 android:layout_width="wrap_content"
-                android:layout_height="?attr/actionBarSize" />
+                android:layout_height="wrap_content" />
 
         </HorizontalScrollView>
 

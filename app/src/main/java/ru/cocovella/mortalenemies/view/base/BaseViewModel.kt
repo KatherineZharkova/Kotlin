@@ -6,5 +6,5 @@ import androidx.lifecycle.ViewModel
 
 open class BaseViewModel<T, S : BaseViewState<T>> : ViewModel() {
     open val baseLiveData = MutableLiveData<S>()
-    open fun baseLiveData(): LiveData<S> = baseLiveData
+    open fun liveData(): LiveData<S> = baseLiveData
 }

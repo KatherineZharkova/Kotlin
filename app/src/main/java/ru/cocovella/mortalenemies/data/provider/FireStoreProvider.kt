@@ -26,9 +26,6 @@ class FireStoreProvider(private val firebaseAuth: FirebaseAuth, private val fire
             fireStore.collection(USERS_COLLECTION).document(it.uid).collection(NOTES_COLLECTION)
         } ?: throw NoAuthException()
 
-
-
-
     override fun subscribeToAllNotes() = MutableLiveData<NoteResult>()
             .apply {
                 try {
@@ -37,7 +34,7 @@ class FireStoreProvider(private val firebaseAuth: FirebaseAuth, private val fire
                             throw it
                         } ?: let {
                             snapshot?.let { snapshot ->
-                                value = Success(snapshot.map {
+                                value = Success(snapshot.documents.map {
                                     it.toObject(Note::class.java) })
                             }
                         }
@@ -63,7 +60,7 @@ class FireStoreProvider(private val firebaseAuth: FirebaseAuth, private val fire
                 try {
                     userNotesCollection.document(note.id).set(note)
                             .addOnSuccessListener {
-                                Log.d(TAG, "Note $note is saved")
+//                                Log.d(TAG, "Note $note is saved")
                                 value = Success(note) }
                             .addOnFailureListener { throw it }
                 } catch (e: Throwable){
@@ -83,7 +80,6 @@ class FireStoreProvider(private val firebaseAuth: FirebaseAuth, private val fire
             value = Error(e)
         }
     }
-
 
     override fun getCurrentUser() = MutableLiveData<User?>().
             apply {

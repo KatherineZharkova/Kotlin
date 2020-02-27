@@ -7,6 +7,8 @@
     <string name="edit_text_body_hint"> ~ Crime ~ </string>
 
     <string name="card_color_picker">Color</string>
+    <string name="card_delete">Delete</string>
+
     <string name="card_title">Кот</string>
     <string name="card_body">Кот — самый надежный товарищ! Он никому не расскажет, как ты ешь по ночам… Он будет есть вместе с тобой.</string>
     <string name="card_note_delete_title">Delete this note forever?</string>
