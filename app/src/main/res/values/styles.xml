@@ -20,6 +20,9 @@
         <item name="android:windowBackground">@drawable/splash</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:statusBarColor">@color/fui_transparent</item>
+        <item name="android:navigationBarColor">@color/fui_transparent</item>
     </style>
 
 </resources>
