@@ -6,6 +6,8 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:fontFamily">@font/phil_fam</item>
+        <item name="fontFamily">@font/phil_fam</item>
     </style>
 
     <style name="LoginStyle" parent="Theme.AppCompat.Light">
