@@ -8,6 +8,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import com.firebase.ui.auth.AuthUI
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.jetbrains.anko.alert
 import org.jetbrains.anko.startActivity
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -18,7 +19,8 @@ import ru.cocovella.mortalenemies.view.note.NoteActivity
 import ru.cocovella.mortalenemies.view.splash.SplashActivity
 
 
-class ListActivity : BaseActivity<List<Note>?, ListViewState>() {
+@ExperimentalCoroutinesApi
+class ListActivity : BaseActivity<List<Note>?>() {
     override val model: ListViewModel by viewModel()
     override val layoutRes = R.layout.activity_main
     private lateinit var adapter: ListAdapter
@@ -60,10 +62,10 @@ class ListActivity : BaseActivity<List<Note>?, ListViewState>() {
     }
 
     private fun onLogout() {
-        AuthUI.getInstance().signOut(this)
-                .addOnCompleteListener{
-                    startActivity(Intent(this, SplashActivity::class.java))
-                    finish()
-                }
+        AuthUI.getInstance().signOut(this).addOnCompleteListener{
+            startActivity(Intent(this, SplashActivity::class.java))
+            finish()
+        }
     }
+
 }

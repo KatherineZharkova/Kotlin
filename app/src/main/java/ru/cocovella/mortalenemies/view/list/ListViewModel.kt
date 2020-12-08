@@ -1,31 +1,35 @@
 package ru.cocovella.mortalenemies.view.list
 
 import androidx.annotation.VisibleForTesting
-import androidx.lifecycle.Observer
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.channels.consumeEach
+import kotlinx.coroutines.launch
 import ru.cocovella.mortalenemies.data.Note
 import ru.cocovella.mortalenemies.data.Repository
-import ru.cocovella.mortalenemies.data.model.NoteResult
 import ru.cocovella.mortalenemies.data.model.NoteResult.Error
 import ru.cocovella.mortalenemies.data.model.NoteResult.Success
 import ru.cocovella.mortalenemies.view.base.BaseViewModel
 
+@ExperimentalCoroutinesApi
 @Suppress("UNCHECKED_CAST")
-class ListViewModel(repository: Repository) : BaseViewModel<List<Note>?, ListViewState>() {
-    private val listLiveData = repository.getNotes()
-    private val resultObserver by lazy { Observer<NoteResult> {
-        it ?: return@Observer
-        if (it is Success<*>) baseLiveData.value = ListViewState(notes = it.data as? List<Note>)
-        else if (it is Error) baseLiveData.value = ListViewState(error = it.error) }
-    }
+class ListViewModel(repository: Repository) : BaseViewModel<List<Note>?>() {
+    private val notesChannel = repository.getNotes()
 
     init {
-        baseLiveData.value = ListViewState()
-        listLiveData.observeForever(resultObserver)
+        launch {
+            notesChannel.consumeEach {
+                when(it) {
+                    is Success<*> -> setData(it.data as? List<Note>)
+                    is Error -> setError(it.error)
+                }
+            }
+        }
+
     }
 
     @VisibleForTesting
     public override fun onCleared() {
-        listLiveData.removeObserver(resultObserver)
+        notesChannel.cancel()
         super.onCleared()
     }
 }
